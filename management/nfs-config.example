@@ -1,0 +1,11 @@
+# /etc/exports trên cloudstack-management (10.20.10.10).
+# Lệnh cài và lệnh mount thử: xem kvm/host1/README.md, mục NFS.
+#
+# /export/primary và /export/secondary nằm trên ổ root (lúc cài còn trống 91 GiB).
+# no_root_squash là bắt buộc với CloudStack.
+
+/export  10.20.0.0/16(rw,async,no_root_squash,no_subtree_check) 192.168.56.0/24(rw,async,no_root_squash,no_subtree_check)
+
+# Kiểm tra trên server:  sudo exportfs -v ; showmount -e localhost
+# Mount thử trên Host 1: sudo mount -t nfs -o vers=4.2 10.20.10.10:/export/primary /mnt/test-primary
+# Kết quả: mount được cả primary và secondary, ghi bằng root được, tốc độ ghi khoảng 1.2 GB/s.
