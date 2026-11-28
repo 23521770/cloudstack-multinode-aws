@@ -1,0 +1,13 @@
+[Unit]
+Description=CloudStack VXLAN overlay bridges
+After=network-online.target
+Wants=network-online.target
+Before=libvirtd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/cloud-overlay.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
